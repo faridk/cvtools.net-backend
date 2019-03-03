@@ -1,0 +1,19 @@
+{
+  "name": "cvtools.net-backend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faridk/cvtools.net-backend.git"
+  },
+  "author": "Farid Kurbanov",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/faridk/cvtools.net-backend/issues"
+  },
+  "homepage": "https://github.com/faridk/cvtools.net-backend#readme"
+}
