@@ -16,27 +16,20 @@ var typeDefs = [`
 	}
 
 	type AppInfo {
-		appName: String,
-		appVersion: String
+		name: String,
+		version: String
 	}
 `];
 
 var resolvers = {
 	Query: {
 		appInfo(root) {
-			return 'TBD';
+			// Potential security issue
+			return {
+				name: process.env.npm_package_name,
+				version: process.env.npm_package_version
+			}
 		}
-
-	// 	appName(root) {
-	// 	// Security issue, consider hardcoding this value
-	// 	// return process.env.npm_package_name;
-	// 	return 'cvtools.net';
-	// },
-
-	// appVersion(root) {
-	// 	// Security issue
-	// 	return process.env.npm_package_version;
-	// }
 }
 };
 
