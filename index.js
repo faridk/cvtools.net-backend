@@ -1,4 +1,10 @@
 const { ApolloServer, gql } = require('apollo-server');
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+// Allow Cross-Origin Requests
+app.use(cors());
 
 var typeDefs = [`
 	schema {
