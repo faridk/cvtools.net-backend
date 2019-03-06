@@ -1,10 +1,12 @@
 {
   "name": "cvtools.net-backend",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "test": "node index.js",
+    "watch": "nodemon index.js",
+    "s": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/faridk/cvtools.net-backend/issues"
   },
-  "homepage": "https://github.com/faridk/cvtools.net-backend#readme"
+  "homepage": "https://github.com/faridk/cvtools.net-backend#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "apollo-server": "^2.4.8",
+    "graphql": "^14.1.1"
+  }
 }
