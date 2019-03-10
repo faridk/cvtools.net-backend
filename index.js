@@ -30,7 +30,7 @@ var resolvers = {
 				version: process.env.npm_package_version
 			}
 		}
-}
+	}
 };
 
 const server = new ApolloServer({ typeDefs, resolvers });
