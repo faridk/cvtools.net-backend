@@ -1,4 +1,6 @@
+var { createCanvas, loadImage } = require('canvas');
 var socket = require('socket.io');
+var ss = require('socket.io-stream');
 var cors = require('cors');
 var express = require('express');
 var app = express();
@@ -34,3 +36,9 @@ function handleConnection(socket) {
 
 app.get('/', (req, res) => res.render('/index.html'));
 
+
+const canvas = createCanvas(1920, 1080);
+const ctx = canvas.getContext('2d');
+
+let jpegStream = canvas.createJPEGStream(); // ReadableStream
+// let pngStream = canvas.createPNGStream();
