@@ -3,9 +3,21 @@ var cors = require('cors');
 var express = require('express');
 var app = express();
 var apollo = require('./apollo');
+var ws = require('ws');
 
 // Allow Cross-Origin Requests
 app.use(cors());
+
+// WebSockets server setup
+const wss = new ws.Server({ port: 5001 });
+
+wss.on('connection', function connection(ws) {
+	ws.on('message', function incoming(message) {
+		console.log('received: %s', message);
+	});
+
+	ws.send('something');
+});
 
 // ApolloServer from local file ./apollo.js
 apollo.startServer(4000);
