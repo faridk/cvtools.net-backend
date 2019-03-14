@@ -18,3 +18,14 @@ const port = 5000;
 var server = app.listen(port, () => console.log(`Express listening on port ${port}!`));
 
 app.get('/', (req, res) => res.render('/index.html'));
+
+// WebSockets server setup
+const wss = new ws.Server({ port: 5001 });
+
+wss.on('connection', function connection(ws) {
+	ws.on('message', function incoming(message) {
+		console.log('received: %s', message);
+	});
+
+	ws.send('authorized');
+});
