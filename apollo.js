@@ -1,20 +1,12 @@
 const { ApolloServer, gql } = require('apollo-server');
-const express = require('express');
-const cors = require('cors');
-const app = express();
-
-// Allow Cross-Origin Requests
-app.use(cors());
 
 var typeDefs = [`
 	schema {
 		query: Query
 	}
-
 	type Query {
 		appInfo: AppInfo
 	}
-
 	type AppInfo {
 		name: String,
 		version: String
@@ -33,5 +25,9 @@ var resolvers = {
 	}
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
-server.listen(4000, () => console.log('Server listening on localhost:4000/graphiql'));
+module.exports = {
+    startServer: function(port) {
+		const server = new ApolloServer({ typeDefs, resolvers });
+		server.listen(port, () => console.log('ApolloServer listening on localhost:' + port + '/graphiql'));
+	}
+};
