@@ -1,7 +1,18 @@
 const cors = require('cors');
+const ws = require('ws');
+const validator = require('validator');
 const express = require('express');
 const app = express();
 const apollo = require('./apollo');
+
+/* TODO
+   use validator.isEmail() for frontend validated emails
+   use MongoDB for storing user emails and HASHED passwords
+   implement authentication: use JSON Web Token (JWT) (recommended) or sessions
+   change session id on login to protect against session fixation attacks
+   use Synchronizing Token Pattern to protect against Cross-Site Request Forgeries (CSRF)
+   Note: CORS does NOT necessarily protect against CSRF
+*/
 
 // Allow Cross-Origin Requests
 app.use(cors());
@@ -24,7 +35,11 @@ const wss = new ws.Server({ port: 5001 });
 
 wss.on('connection', function connection(ws) {
 	ws.on('message', function incoming(message) {
-		console.log('received: %s', message);
+		if (validator.isAscii(message)) {
+			console.log('received: %s', message);
+		} else {
+			console.log('error: received message is not a string');            
+		}
 	});
 
 	ws.send('authorized');
