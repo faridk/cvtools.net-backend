@@ -1,4 +1,4 @@
-# Troubleshooting CUDA related issues of @tensorflow/tfjs-node-gpu
+# Troubleshooting CUDA related issues of @tensorflow/tfjs-node-gpu (version 1.0.1)
 
 Step 1: Add these to your `~/.bashrc` (source: mostafaelhoushi's answer from [here](https://github.com/tensorflow/tensorflow/issues/26182))
 

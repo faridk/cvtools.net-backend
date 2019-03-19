@@ -67,6 +67,11 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
+"@tensorflow-models/body-pix@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@tensorflow-models/body-pix/-/body-pix-1.0.0.tgz#f85e32b9d90698b7001b53806ebcae456c6cfaef"
+  integrity sha512-aHcr1wPBtqVimTlut+qfMrW2GKcMok9IXR+uNNnvIlNXrw/jeQGIFtWrAnwCGKhidI88zcB26rVY3mUIL3j2VA==
+
 "@tensorflow/tfjs-converter@1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-converter/-/tfjs-converter-1.0.1.tgz#250ce5289644c5a7bfc7eb357459dd7a9e27ba7a"
