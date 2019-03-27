@@ -1,3 +1,4 @@
+// $NoFlow
 const { ApolloServer, gql } = require('apollo-server');
 
 var typeDefs = [`
@@ -41,7 +42,7 @@ var resolvers = {
 };
 
 module.exports = {
-    startServer: function(port) {
+    startServer: function(port: number) {
 		const server = new ApolloServer({ typeDefs, resolvers });
 		server.listen(port, () => console.log('ApolloServer listening on localhost:' + port + '/graphiql'));
 	}

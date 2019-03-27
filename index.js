@@ -3,4 +3,4 @@ const core = require('./core/main');
 
 servers.startServers();
 
-core.init();
+core.init(true);

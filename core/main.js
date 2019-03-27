@@ -6,7 +6,7 @@ function init(isBackend) {
 }
 
 module.exports = {
-	init: function(isBackend) {
+	init: function(isBackend: boolean) {
 		init(isBackend);
 	}
 };
