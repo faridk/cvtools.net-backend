@@ -1,5 +1,8 @@
 [ignore]
+# Save RAM and get fewer errors
 .*/node_modules/.*
+# Ignore prisma files
+.*/prisma/.*
 
 [include]
 

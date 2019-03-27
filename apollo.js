@@ -42,7 +42,7 @@ var resolvers = {
 };
 
 module.exports = {
-    startServer: function(port: number) {
+		startServer: function(port: number) {
 		const server = new ApolloServer({ typeDefs, resolvers });
 		server.listen(port, () => console.log('ApolloServer listening on localhost:' + port + '/graphiql'));
 	}
