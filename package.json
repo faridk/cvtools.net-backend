@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node index.js",
     "watch": "nodemon index.js",
-    "s": "nodemon index.js"
+    "flow": "flow",
+    "flow:check": "flow check ./src/"
   },
   "repository": {
     "type": "git",
