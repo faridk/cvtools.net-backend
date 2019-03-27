@@ -1,0 +1,13 @@
+[ignore]
+.*/node_modules/.*
+
+[include]
+
+[libs]
+flow-typed
+
+[options]
+# Check all files for errors
+all=true
+# Ignore lines under custom comments ($FlowFixMe by default)
+suppress_comment= \\(.\\|\n\\)*\\$NoFlow
