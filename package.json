@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/faridk/cvtools.net-backend#readme",
   "devDependencies": {
+    "flow-bin": "^0.95.1",
     "nodemon": "^1.18.10"
   },
   "dependencies": {
