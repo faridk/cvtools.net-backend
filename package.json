@@ -6,10 +6,10 @@
   "scripts": {
     "test": "node build/index.js",
     "watch": "nodemon --watch src --exec \"yarn run build && yarn run test\"",
-    "flow": "flow",
-    "flow:check": "flow check ./src/",
+    "flow": "flow check ./src/",
     "build": "babel src/ -d build/",
-    "prisma": "sudo docker-compose up -d"
+    "run-prisma": "cd ./prisma && sudo docker-compose up -d",
+    "update-prisma-datamodel": "cd ./prisma && prisma deploy && prisma generate"
   },
   "repository": {
     "type": "git",
