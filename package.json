@@ -4,8 +4,8 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "test": "node index.js",
-    "watch": "nodemon index.js",
+    "test": "node build/index.js",
+    "watch": "nodemon --watch src --exec \"yarn run build && yarn run test\"",
     "flow": "flow",
     "flow:check": "flow check ./src/",
     "build": "babel src/ -d build/",
