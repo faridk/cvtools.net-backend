@@ -8,7 +8,8 @@
     "watch": "nodemon index.js",
     "flow": "flow",
     "flow:check": "flow check ./src/",
-    "build": "babel src/ -d build/"
+    "build": "babel src/ -d build/",
+    "prisma": "sudo docker-compose up -d"
   },
   "repository": {
     "type": "git",
