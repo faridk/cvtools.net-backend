@@ -1,3 +1,6 @@
+# Flow code transpiled to regular JS
+build
+
 # Logs
 logs
 *.log

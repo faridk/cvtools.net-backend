@@ -4,6 +4,9 @@
 # Ignore prisma files
 .*/prisma/.*
 
+# Flow code transpiled to regular JS
+.*/build/.*
+
 [include]
 
 [libs]
