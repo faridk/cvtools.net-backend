@@ -1,5 +1,6 @@
 // $NoFlow
 const { ApolloServer, gql } = require('apollo-server');
+const prisma = require('./prisma');
 
 var typeDefs = [`
 	schema {
@@ -35,8 +36,12 @@ var resolvers = {
 			return 'Login successful';
 		},
 		signup: async (_, { email, pass }) => {
-			console.log(`\nSign Up\ne-mail: ${email}\npass: ${pass}\n`);
-			return 'Signup successful';
+			let message = 'ok';
+			console.log(`\nSign Up\ne-mail: ${email}\npass: ${pass}`);
+			await prisma.addUser(email, pass).catch((error) => {
+				message = error;
+			});
+			return message;
 		}
 	}
 };
@@ -44,6 +49,7 @@ var resolvers = {
 module.exports = {
 		startServer: function(port: number) {
 		const server = new ApolloServer({ typeDefs, resolvers });
-		server.listen(port, () => console.log('ApolloServer listening on localhost:' + port + '/graphiql'));
+		server.listen(port, () => console.log('ApolloServer listening on localhost:'
+			+ port + '/graphiql'));
 	}
 };
