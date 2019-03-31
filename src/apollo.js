@@ -3,8 +3,6 @@ const { ApolloServer, gql } = require('apollo-server');
 const prisma = require('./prisma');
 const auth = require('./auth');
 
-const HEADER_NAME = 'authorization';
-
 var typeDefs = [`
 	schema {
 		query: Query,
@@ -54,6 +52,15 @@ function startServer(port: number) {
 		typeDefs,
 		resolvers,
 		context: async ({ req }) => {
+			let authToken = req.headers['authorization'];
+			try {
+				console.log(authToken);
+				if (authToken) {
+					// Token exists
+				}
+			 } catch (e) {
+					console.warn(`Unable to authenticate using auth token: ${authToken}`);
+			}
 		}
 	});
 	server.listen(port, () => console.log('ApolloServer listening on localhost:'

@@ -7,6 +7,11 @@ async function authenticateUser(email: string, password: string) {
 	let loginResponse: string;
 	let badEmail: boolean;
 	let badPassword: boolean;
+	// Generate an authToken from random string
+	let randomString: string = Math.random().toString(36).substring(2, 15)
+		+ Math.random().toString(36).substring(2, 15); // 20-22 chars
+	let authToken: string = Buffer.from(randomString).toString('base64');
+	// Lookup email in the DB
 	const user = await prisma.user({ email: email });
 	if (user === null) {
 		attemptSuccessful = false;
@@ -23,7 +28,7 @@ async function authenticateUser(email: string, password: string) {
 		attemptSuccessful = true;
 		badEmail = false;
 		badPassword = false;
-		loginResponse = 'ok';
+		loginResponse = 'authToken: ' + authToken;
 	}
 	recordLoginAttempt(attemptSuccessful, badEmail, badPassword, email, password);
 	return loginResponse;
@@ -54,8 +59,8 @@ async function recordLoginAttempt(successful: boolean,
 		// console.log(util.inspect(result, {showHidden: false, depth: null}));
 		// No errors (GraphQL object not a string) thus .toString()
 		if (!result.toString().includes("error")) {
-			console.log(`\x1b[${successful ? '32' : '31' }m`); // Green or red color
-			console.log(`New ${successful ? 'successful' : 'failed' } login attempt\n` +
+			console.log(`\x1b[${successful ? '32' : '31'}m`); // Green or red color
+			console.log(`New ${successful ? 'successful' : 'failed'} login attempt\n` +
 			`email: ${result.email}\n` +
 			`password: ${result.password}`);
 			console.log('\x1b[0m'); // Reset color back to normal
