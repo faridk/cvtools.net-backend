@@ -1,6 +1,5 @@
 // $NoFlow
 const { ApolloServer, gql } = require('apollo-server');
-const prisma = require('./prisma');
 const auth = require('./auth');
 
 var typeDefs = [`
@@ -34,12 +33,12 @@ var resolvers = {
 	Mutation: {
 		login: async (_, { email, password }) => {
 			// console.log(`\nLogin\ne-mail: ${email}\npassword: ${password}\n`);
-			return auth.authenticateUser(email, password);
+			return auth.loginUser(email, password);
 		},
 		signup: async (_, { email, password }) => {
 			let message = 'ok';
 			console.log(`\nSign Up\ne-mail: ${email}\npassword: ${password}`);
-			await prisma.addUser(email, password).catch((error) => {
+			await auth.signupUser(email, password).catch((error) => {
 				message = error;
 			});
 			return message;
