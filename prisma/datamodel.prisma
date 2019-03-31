@@ -4,3 +4,13 @@ type User {
   password: String!
   signedUpOn: DateTime!
 }
+
+type LoginAttempt {
+  id: ID! @unique
+  successful: Boolean!
+  badEmail: Boolean
+  badPassword: Boolean
+  email: String
+  password: String
+  time: DateTime!
+}

@@ -22,7 +22,7 @@ async function signUp(email: string, password: string) {
 		let errorMessage = error.result.errors[0].message;
 		if (errorMessage.includes("A unique constraint would be violated on User." +
 			" Details: Field name = email")) {
-			console.log('\x1b[41m'); // Red color
+			console.log('\x1b[31m'); // Red color
 			console.log(`Error: e-mail ${email} already in use; password: ${password};\n` +
 				`time: ${(new Date()).toString()}`);
 			console.log('\x1b[0m'); // Reset color back to normal
@@ -30,7 +30,7 @@ async function signUp(email: string, password: string) {
 		}
 	}).then((result) => {
 		if (result === undefined) {
-			console.log('\x1b[41m'); // Red color
+			console.log('\x1b[31m'); // Red color
 			console.log('Error: result is undefined');
 			console.log('\x1b[0m'); // Reset color back to normal
 			return Promise.reject('error: unknown error');

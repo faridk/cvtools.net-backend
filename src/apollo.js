@@ -1,6 +1,9 @@
 // $NoFlow
 const { ApolloServer, gql } = require('apollo-server');
 const prisma = require('./prisma');
+const auth = require('./auth');
+
+const HEADER_NAME = 'authorization';
 
 var typeDefs = [`
 	schema {
@@ -11,8 +14,8 @@ var typeDefs = [`
 		appInfo: AppInfo
 	}
 	type Mutation {
-		login(email: String, pass: String): String,
-		signup(email: String, pass: String): String
+		login(email: String, password: String): String,
+		signup(email: String, password: String): String
 	}
 	type AppInfo {
 		name: String,
@@ -31,14 +34,14 @@ var resolvers = {
 		}
 	},
 	Mutation: {
-		login: async (_, { email, pass }) => {
-			console.log(`\nLogin\ne-mail: ${email}\npass: ${pass}\n`);
-			return 'Login successful';
+		login: async (_, { email, password }) => {
+			// console.log(`\nLogin\ne-mail: ${email}\npassword: ${password}\n`);
+			return auth.authenticateUser(email, password);
 		},
-		signup: async (_, { email, pass }) => {
+		signup: async (_, { email, password }) => {
 			let message = 'ok';
-			console.log(`\nSign Up\ne-mail: ${email}\npass: ${pass}`);
-			await prisma.addUser(email, pass).catch((error) => {
+			console.log(`\nSign Up\ne-mail: ${email}\npassword: ${password}`);
+			await prisma.addUser(email, password).catch((error) => {
 				message = error;
 			});
 			return message;
@@ -46,10 +49,19 @@ var resolvers = {
 	}
 };
 
+function startServer(port: number) {
+	const server = new ApolloServer({
+		typeDefs,
+		resolvers,
+		context: async ({ req }) => {
+		}
+	});
+	server.listen(port, () => console.log('ApolloServer listening on localhost:'
+		+ port + '/graphiql'));
+}
+
 module.exports = {
-		startServer: function(port: number) {
-		const server = new ApolloServer({ typeDefs, resolvers });
-		server.listen(port, () => console.log('ApolloServer listening on localhost:'
-			+ port + '/graphiql'));
+	startServer: function(port: number) {
+		startServer(port);
 	}
 };

@@ -14,6 +14,7 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
   U[keyof U];
 
 export interface Exists {
+  loginAttempt: (where?: LoginAttemptWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -36,6 +37,29 @@ export interface Prisma {
    * Queries
    */
 
+  loginAttempt: (where: LoginAttemptWhereUniqueInput) => LoginAttemptPromise;
+  loginAttempts: (
+    args?: {
+      where?: LoginAttemptWhereInput;
+      orderBy?: LoginAttemptOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FragmentableArray<LoginAttempt>;
+  loginAttemptsConnection: (
+    args?: {
+      where?: LoginAttemptWhereInput;
+      orderBy?: LoginAttemptOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => LoginAttemptConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserPromise;
   users: (
     args?: {
@@ -65,6 +89,29 @@ export interface Prisma {
    * Mutations
    */
 
+  createLoginAttempt: (data: LoginAttemptCreateInput) => LoginAttemptPromise;
+  updateLoginAttempt: (
+    args: { data: LoginAttemptUpdateInput; where: LoginAttemptWhereUniqueInput }
+  ) => LoginAttemptPromise;
+  updateManyLoginAttempts: (
+    args: {
+      data: LoginAttemptUpdateManyMutationInput;
+      where?: LoginAttemptWhereInput;
+    }
+  ) => BatchPayloadPromise;
+  upsertLoginAttempt: (
+    args: {
+      where: LoginAttemptWhereUniqueInput;
+      create: LoginAttemptCreateInput;
+      update: LoginAttemptUpdateInput;
+    }
+  ) => LoginAttemptPromise;
+  deleteLoginAttempt: (
+    where: LoginAttemptWhereUniqueInput
+  ) => LoginAttemptPromise;
+  deleteManyLoginAttempts: (
+    where?: LoginAttemptWhereInput
+  ) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (
     args: { data: UserUpdateInput; where: UserWhereUniqueInput }
@@ -90,6 +137,9 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  loginAttempt: (
+    where?: LoginAttemptSubscriptionWhereInput
+  ) => LoginAttemptSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -102,6 +152,26 @@ export interface ClientConstructor<T> {
 /**
  * Types
  */
+
+export type LoginAttemptOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "successful_ASC"
+  | "successful_DESC"
+  | "badEmail_ASC"
+  | "badEmail_DESC"
+  | "badPassword_ASC"
+  | "badPassword_DESC"
+  | "email_ASC"
+  | "email_DESC"
+  | "password_ASC"
+  | "password_DESC"
+  | "time_ASC"
+  | "time_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -118,6 +188,72 @@ export type UserOrderByInput =
   | "updatedAt_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
+
+export type LoginAttemptWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface LoginAttemptWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  successful?: Boolean;
+  successful_not?: Boolean;
+  badEmail?: Boolean;
+  badEmail_not?: Boolean;
+  badPassword?: Boolean;
+  badPassword_not?: Boolean;
+  email?: String;
+  email_not?: String;
+  email_in?: String[] | String;
+  email_not_in?: String[] | String;
+  email_lt?: String;
+  email_lte?: String;
+  email_gt?: String;
+  email_gte?: String;
+  email_contains?: String;
+  email_not_contains?: String;
+  email_starts_with?: String;
+  email_not_starts_with?: String;
+  email_ends_with?: String;
+  email_not_ends_with?: String;
+  password?: String;
+  password_not?: String;
+  password_in?: String[] | String;
+  password_not_in?: String[] | String;
+  password_lt?: String;
+  password_lte?: String;
+  password_gt?: String;
+  password_gte?: String;
+  password_contains?: String;
+  password_not_contains?: String;
+  password_starts_with?: String;
+  password_not_starts_with?: String;
+  password_ends_with?: String;
+  password_not_ends_with?: String;
+  time?: DateTimeInput;
+  time_not?: DateTimeInput;
+  time_in?: DateTimeInput[] | DateTimeInput;
+  time_not_in?: DateTimeInput[] | DateTimeInput;
+  time_lt?: DateTimeInput;
+  time_lte?: DateTimeInput;
+  time_gt?: DateTimeInput;
+  time_gte?: DateTimeInput;
+  AND?: LoginAttemptWhereInput[] | LoginAttemptWhereInput;
+  OR?: LoginAttemptWhereInput[] | LoginAttemptWhereInput;
+  NOT?: LoginAttemptWhereInput[] | LoginAttemptWhereInput;
+}
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
@@ -180,6 +316,33 @@ export interface UserWhereInput {
   NOT?: UserWhereInput[] | UserWhereInput;
 }
 
+export interface LoginAttemptCreateInput {
+  successful: Boolean;
+  badEmail?: Boolean;
+  badPassword?: Boolean;
+  email?: String;
+  password?: String;
+  time: DateTimeInput;
+}
+
+export interface LoginAttemptUpdateInput {
+  successful?: Boolean;
+  badEmail?: Boolean;
+  badPassword?: Boolean;
+  email?: String;
+  password?: String;
+  time?: DateTimeInput;
+}
+
+export interface LoginAttemptUpdateManyMutationInput {
+  successful?: Boolean;
+  badEmail?: Boolean;
+  badPassword?: Boolean;
+  email?: String;
+  password?: String;
+  time?: DateTimeInput;
+}
+
 export interface UserCreateInput {
   email: String;
   password: String;
@@ -198,6 +361,23 @@ export interface UserUpdateManyMutationInput {
   signedUpOn?: DateTimeInput;
 }
 
+export interface LoginAttemptSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: LoginAttemptWhereInput;
+  AND?:
+    | LoginAttemptSubscriptionWhereInput[]
+    | LoginAttemptSubscriptionWhereInput;
+  OR?:
+    | LoginAttemptSubscriptionWhereInput[]
+    | LoginAttemptSubscriptionWhereInput;
+  NOT?:
+    | LoginAttemptSubscriptionWhereInput[]
+    | LoginAttemptSubscriptionWhereInput;
+}
+
 export interface UserSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
@@ -211,6 +391,119 @@ export interface UserSubscriptionWhereInput {
 
 export interface NodeNode {
   id: ID_Output;
+}
+
+export interface LoginAttempt {
+  id: ID_Output;
+  successful: Boolean;
+  badEmail?: Boolean;
+  badPassword?: Boolean;
+  email?: String;
+  password?: String;
+  time: DateTimeOutput;
+}
+
+export interface LoginAttemptPromise
+  extends Promise<LoginAttempt>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  successful: () => Promise<Boolean>;
+  badEmail: () => Promise<Boolean>;
+  badPassword: () => Promise<Boolean>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  time: () => Promise<DateTimeOutput>;
+}
+
+export interface LoginAttemptSubscription
+  extends Promise<AsyncIterator<LoginAttempt>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  successful: () => Promise<AsyncIterator<Boolean>>;
+  badEmail: () => Promise<AsyncIterator<Boolean>>;
+  badPassword: () => Promise<AsyncIterator<Boolean>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  time: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface LoginAttemptConnection {
+  pageInfo: PageInfo;
+  edges: LoginAttemptEdge[];
+}
+
+export interface LoginAttemptConnectionPromise
+  extends Promise<LoginAttemptConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<LoginAttemptEdge>>() => T;
+  aggregate: <T = AggregateLoginAttemptPromise>() => T;
+}
+
+export interface LoginAttemptConnectionSubscription
+  extends Promise<AsyncIterator<LoginAttemptConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<LoginAttemptEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateLoginAttemptSubscription>() => T;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface LoginAttemptEdge {
+  node: LoginAttempt;
+  cursor: String;
+}
+
+export interface LoginAttemptEdgePromise
+  extends Promise<LoginAttemptEdge>,
+    Fragmentable {
+  node: <T = LoginAttemptPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface LoginAttemptEdgeSubscription
+  extends Promise<AsyncIterator<LoginAttemptEdge>>,
+    Fragmentable {
+  node: <T = LoginAttemptSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateLoginAttempt {
+  count: Int;
+}
+
+export interface AggregateLoginAttemptPromise
+  extends Promise<AggregateLoginAttempt>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateLoginAttemptSubscription
+  extends Promise<AsyncIterator<AggregateLoginAttempt>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface User {
@@ -255,29 +548,6 @@ export interface UserConnectionSubscription
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
   aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserEdge {
@@ -327,6 +597,65 @@ export interface BatchPayloadSubscription
   extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface LoginAttemptSubscriptionPayload {
+  mutation: MutationType;
+  node: LoginAttempt;
+  updatedFields: String[];
+  previousValues: LoginAttemptPreviousValues;
+}
+
+export interface LoginAttemptSubscriptionPayloadPromise
+  extends Promise<LoginAttemptSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = LoginAttemptPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = LoginAttemptPreviousValuesPromise>() => T;
+}
+
+export interface LoginAttemptSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<LoginAttemptSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = LoginAttemptSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = LoginAttemptPreviousValuesSubscription>() => T;
+}
+
+export interface LoginAttemptPreviousValues {
+  id: ID_Output;
+  successful: Boolean;
+  badEmail?: Boolean;
+  badPassword?: Boolean;
+  email?: String;
+  password?: String;
+  time: DateTimeOutput;
+}
+
+export interface LoginAttemptPreviousValuesPromise
+  extends Promise<LoginAttemptPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  successful: () => Promise<Boolean>;
+  badEmail: () => Promise<Boolean>;
+  badPassword: () => Promise<Boolean>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  time: () => Promise<DateTimeOutput>;
+}
+
+export interface LoginAttemptPreviousValuesSubscription
+  extends Promise<AsyncIterator<LoginAttemptPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  successful: () => Promise<AsyncIterator<Boolean>>;
+  badEmail: () => Promise<AsyncIterator<Boolean>>;
+  badPassword: () => Promise<AsyncIterator<Boolean>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  time: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -386,6 +715,11 @@ export type ID_Input = string | number;
 export type ID_Output = string;
 
 /*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
+
+/*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string;
@@ -405,11 +739,6 @@ The `Int` scalar type represents non-fractional signed whole numeric values. Int
 */
 export type Int = number;
 
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
-
 export type Long = string;
 
 /**
@@ -419,6 +748,10 @@ export type Long = string;
 export const models: Model[] = [
   {
     name: "User",
+    embedded: false
+  },
+  {
+    name: "LoginAttempt",
     embedded: false
   }
 ];
