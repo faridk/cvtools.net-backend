@@ -168,6 +168,8 @@ export type LoginAttemptOrderByInput =
   | "password_DESC"
   | "time_ASC"
   | "time_DESC"
+  | "ip_ASC"
+  | "ip_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -250,6 +252,20 @@ export interface LoginAttemptWhereInput {
   time_lte?: DateTimeInput;
   time_gt?: DateTimeInput;
   time_gte?: DateTimeInput;
+  ip?: String;
+  ip_not?: String;
+  ip_in?: String[] | String;
+  ip_not_in?: String[] | String;
+  ip_lt?: String;
+  ip_lte?: String;
+  ip_gt?: String;
+  ip_gte?: String;
+  ip_contains?: String;
+  ip_not_contains?: String;
+  ip_starts_with?: String;
+  ip_not_starts_with?: String;
+  ip_ends_with?: String;
+  ip_not_ends_with?: String;
   AND?: LoginAttemptWhereInput[] | LoginAttemptWhereInput;
   OR?: LoginAttemptWhereInput[] | LoginAttemptWhereInput;
   NOT?: LoginAttemptWhereInput[] | LoginAttemptWhereInput;
@@ -323,6 +339,7 @@ export interface LoginAttemptCreateInput {
   email?: String;
   password?: String;
   time: DateTimeInput;
+  ip: String;
 }
 
 export interface LoginAttemptUpdateInput {
@@ -332,6 +349,7 @@ export interface LoginAttemptUpdateInput {
   email?: String;
   password?: String;
   time?: DateTimeInput;
+  ip?: String;
 }
 
 export interface LoginAttemptUpdateManyMutationInput {
@@ -341,6 +359,7 @@ export interface LoginAttemptUpdateManyMutationInput {
   email?: String;
   password?: String;
   time?: DateTimeInput;
+  ip?: String;
 }
 
 export interface UserCreateInput {
@@ -401,6 +420,7 @@ export interface LoginAttempt {
   email?: String;
   password?: String;
   time: DateTimeOutput;
+  ip: String;
 }
 
 export interface LoginAttemptPromise
@@ -413,6 +433,7 @@ export interface LoginAttemptPromise
   email: () => Promise<String>;
   password: () => Promise<String>;
   time: () => Promise<DateTimeOutput>;
+  ip: () => Promise<String>;
 }
 
 export interface LoginAttemptSubscription
@@ -425,6 +446,7 @@ export interface LoginAttemptSubscription
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
   time: () => Promise<AsyncIterator<DateTimeOutput>>;
+  ip: () => Promise<AsyncIterator<String>>;
 }
 
 export interface LoginAttemptConnection {
@@ -632,6 +654,7 @@ export interface LoginAttemptPreviousValues {
   email?: String;
   password?: String;
   time: DateTimeOutput;
+  ip: String;
 }
 
 export interface LoginAttemptPreviousValuesPromise
@@ -644,6 +667,7 @@ export interface LoginAttemptPreviousValuesPromise
   email: () => Promise<String>;
   password: () => Promise<String>;
   time: () => Promise<DateTimeOutput>;
+  ip: () => Promise<String>;
 }
 
 export interface LoginAttemptPreviousValuesSubscription
@@ -656,6 +680,7 @@ export interface LoginAttemptPreviousValuesSubscription
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
   time: () => Promise<AsyncIterator<DateTimeOutput>>;
+  ip: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserSubscriptionPayload {

@@ -25,6 +25,7 @@ type LoginAttempt {
   email: String
   password: String
   time: DateTime!
+  ip: String!
 }
 
 type LoginAttemptConnection {
@@ -40,6 +41,7 @@ input LoginAttemptCreateInput {
   email: String
   password: String
   time: DateTime!
+  ip: String!
 }
 
 type LoginAttemptEdge {
@@ -62,6 +64,8 @@ enum LoginAttemptOrderByInput {
   password_DESC
   time_ASC
   time_DESC
+  ip_ASC
+  ip_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -76,6 +80,7 @@ type LoginAttemptPreviousValues {
   email: String
   password: String
   time: DateTime!
+  ip: String!
 }
 
 type LoginAttemptSubscriptionPayload {
@@ -103,6 +108,7 @@ input LoginAttemptUpdateInput {
   email: String
   password: String
   time: DateTime
+  ip: String
 }
 
 input LoginAttemptUpdateManyMutationInput {
@@ -112,6 +118,7 @@ input LoginAttemptUpdateManyMutationInput {
   email: String
   password: String
   time: DateTime
+  ip: String
 }
 
 input LoginAttemptWhereInput {
@@ -171,6 +178,20 @@ input LoginAttemptWhereInput {
   time_lte: DateTime
   time_gt: DateTime
   time_gte: DateTime
+  ip: String
+  ip_not: String
+  ip_in: [String!]
+  ip_not_in: [String!]
+  ip_lt: String
+  ip_lte: String
+  ip_gt: String
+  ip_gte: String
+  ip_contains: String
+  ip_not_contains: String
+  ip_starts_with: String
+  ip_not_starts_with: String
+  ip_ends_with: String
+  ip_not_ends_with: String
   AND: [LoginAttemptWhereInput!]
   OR: [LoginAttemptWhereInput!]
   NOT: [LoginAttemptWhereInput!]

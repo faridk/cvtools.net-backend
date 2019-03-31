@@ -13,4 +13,5 @@ type LoginAttempt {
   email: String
   password: String
   time: DateTime!
+  ip: String!
 }

@@ -4,7 +4,7 @@ const { prisma } = require('../prisma/generated/prisma-client');
 const util = require('util');
 
 // TODO Add a delay on 3 failed attempts; detect and ban bruteforcers
-async function authenticateUser(email: string, password: string) {
+async function authenticateUser(email: string, password: string, ip: string) {
 	let attemptSuccessful: boolean;
 	let loginResponse: string;
 	let badEmail: boolean;
@@ -32,28 +32,33 @@ async function authenticateUser(email: string, password: string) {
 		badPassword = false;
 		loginResponse = 'authToken: ' + authToken;
 	}
-	recordLoginAttempt(attemptSuccessful, badEmail, badPassword, email, password);
+	recordLoginAttempt(attemptSuccessful,
+		badEmail, badPassword, email, password, ip);
 	return loginResponse;
 }
 
 // Used by authenticateUser()
-async function recordLoginAttempt(successful: boolean,
-	badEmail: boolean, badPassword: boolean, email: string, password: string) {
+async function recordLoginAttempt(successful: boolean, badEmail: boolean,
+	badPassword: boolean, email: string, password: string, ip: string) {
 	const newLoginAttempt = await prisma.createLoginAttempt({
 		successful: successful,
 		badEmail: badEmail,
 		badPassword: badPassword,
 		email: email,
 		password: password,
-		time: new Date()
+		time: new Date(),
+		ip: ip
 	}).catch((error) => {
 		// Show complete error object
 		// console.log(util.inspect(error, {showHidden: false, depth: null}));
 		let errorMessage = error.result.errors[0].message;
+		console.log('\x1b[31m'); // Red color
+		console.log('LogIn error: ', errorMessage);
+		console.log('\x1b[0m'); // Reset color back to normal
 	}).then((result) => {
 		if (result === undefined) {
 			console.log('\x1b[31m'); // Red color
-			console.log('Error: result is undefined');
+			console.log('LogIn error: result is undefined');
 			console.log('\x1b[0m'); // Reset color back to normal
 			return Promise.reject('error: unknown error');
 		}
@@ -73,7 +78,8 @@ async function recordLoginAttempt(successful: boolean,
 	});
 }
 
-async function signUp(email: string, password: string) {
+// TODO login and save ip in LoginAttempt right after signup
+async function signUp(email: string, password: string, ip: string) {
 	const newUser = await prisma.createUser({
 		email: email,
 		password: password,
@@ -89,11 +95,15 @@ async function signUp(email: string, password: string) {
 				`time: ${(new Date()).toString()}`);
 			console.log('\x1b[0m'); // Reset color back to normal
 			return 'error: email in use';
+		} else {
+			console.log('\x1b[31m'); // Red color
+			console.log('SignUp error: ', errorMessage);
+			console.log('\x1b[0m'); // Reset color back to normal
 		}
 	}).then((result) => {
 		if (result === undefined) {
 			console.log('\x1b[31m'); // Red color
-			console.log('Error: result is undefined');
+			console.log('SignUp error: result is undefined');
 			console.log('\x1b[0m'); // Reset color back to normal
 			return Promise.reject('error: unknown error');
 		}
@@ -113,10 +123,10 @@ async function signUp(email: string, password: string) {
 }
 
 module.exports = {
-	signupUser: function(email: string, pass: string): Promise<any> {
-		return signUp(email, pass);
+	signupUser: function(email: string, pass: string, ip:string): Promise<any> {
+		return signUp(email, pass, ip);
 	},
-	loginUser: function(email: string, password: string): Promise<any> {
-		return authenticateUser(email, password);
+	loginUser: function(email: string, password: string, ip: string): Promise<any> {
+		return authenticateUser(email, password, ip);
 	}
 };
