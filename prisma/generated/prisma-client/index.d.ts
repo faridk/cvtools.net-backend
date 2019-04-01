@@ -166,6 +166,8 @@ export type LoginAttemptOrderByInput =
   | "email_DESC"
   | "password_ASC"
   | "password_DESC"
+  | "authToken_ASC"
+  | "authToken_DESC"
   | "time_ASC"
   | "time_DESC"
   | "ip_ASC"
@@ -244,6 +246,20 @@ export interface LoginAttemptWhereInput {
   password_not_starts_with?: String;
   password_ends_with?: String;
   password_not_ends_with?: String;
+  authToken?: String;
+  authToken_not?: String;
+  authToken_in?: String[] | String;
+  authToken_not_in?: String[] | String;
+  authToken_lt?: String;
+  authToken_lte?: String;
+  authToken_gt?: String;
+  authToken_gte?: String;
+  authToken_contains?: String;
+  authToken_not_contains?: String;
+  authToken_starts_with?: String;
+  authToken_not_starts_with?: String;
+  authToken_ends_with?: String;
+  authToken_not_ends_with?: String;
   time?: DateTimeInput;
   time_not?: DateTimeInput;
   time_in?: DateTimeInput[] | DateTimeInput;
@@ -338,6 +354,7 @@ export interface LoginAttemptCreateInput {
   badPassword?: Boolean;
   email?: String;
   password?: String;
+  authToken?: String;
   time: DateTimeInput;
   ip: String;
 }
@@ -348,6 +365,7 @@ export interface LoginAttemptUpdateInput {
   badPassword?: Boolean;
   email?: String;
   password?: String;
+  authToken?: String;
   time?: DateTimeInput;
   ip?: String;
 }
@@ -358,6 +376,7 @@ export interface LoginAttemptUpdateManyMutationInput {
   badPassword?: Boolean;
   email?: String;
   password?: String;
+  authToken?: String;
   time?: DateTimeInput;
   ip?: String;
 }
@@ -365,18 +384,29 @@ export interface LoginAttemptUpdateManyMutationInput {
 export interface UserCreateInput {
   email: String;
   password: String;
+  tokens?: UserCreatetokensInput;
   signedUpOn: DateTimeInput;
+}
+
+export interface UserCreatetokensInput {
+  set?: String[] | String;
 }
 
 export interface UserUpdateInput {
   email?: String;
   password?: String;
+  tokens?: UserUpdatetokensInput;
   signedUpOn?: DateTimeInput;
+}
+
+export interface UserUpdatetokensInput {
+  set?: String[] | String;
 }
 
 export interface UserUpdateManyMutationInput {
   email?: String;
   password?: String;
+  tokens?: UserUpdatetokensInput;
   signedUpOn?: DateTimeInput;
 }
 
@@ -419,6 +449,7 @@ export interface LoginAttempt {
   badPassword?: Boolean;
   email?: String;
   password?: String;
+  authToken?: String;
   time: DateTimeOutput;
   ip: String;
 }
@@ -432,6 +463,7 @@ export interface LoginAttemptPromise
   badPassword: () => Promise<Boolean>;
   email: () => Promise<String>;
   password: () => Promise<String>;
+  authToken: () => Promise<String>;
   time: () => Promise<DateTimeOutput>;
   ip: () => Promise<String>;
 }
@@ -445,6 +477,7 @@ export interface LoginAttemptSubscription
   badPassword: () => Promise<AsyncIterator<Boolean>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
+  authToken: () => Promise<AsyncIterator<String>>;
   time: () => Promise<AsyncIterator<DateTimeOutput>>;
   ip: () => Promise<AsyncIterator<String>>;
 }
@@ -532,6 +565,7 @@ export interface User {
   id: ID_Output;
   email: String;
   password: String;
+  tokens: String[];
   signedUpOn: DateTimeOutput;
 }
 
@@ -539,6 +573,7 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
   password: () => Promise<String>;
+  tokens: () => Promise<String[]>;
   signedUpOn: () => Promise<DateTimeOutput>;
 }
 
@@ -548,6 +583,7 @@ export interface UserSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
+  tokens: () => Promise<AsyncIterator<String[]>>;
   signedUpOn: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
@@ -653,6 +689,7 @@ export interface LoginAttemptPreviousValues {
   badPassword?: Boolean;
   email?: String;
   password?: String;
+  authToken?: String;
   time: DateTimeOutput;
   ip: String;
 }
@@ -666,6 +703,7 @@ export interface LoginAttemptPreviousValuesPromise
   badPassword: () => Promise<Boolean>;
   email: () => Promise<String>;
   password: () => Promise<String>;
+  authToken: () => Promise<String>;
   time: () => Promise<DateTimeOutput>;
   ip: () => Promise<String>;
 }
@@ -679,6 +717,7 @@ export interface LoginAttemptPreviousValuesSubscription
   badPassword: () => Promise<AsyncIterator<Boolean>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
+  authToken: () => Promise<AsyncIterator<String>>;
   time: () => Promise<AsyncIterator<DateTimeOutput>>;
   ip: () => Promise<AsyncIterator<String>>;
 }
@@ -712,6 +751,7 @@ export interface UserPreviousValues {
   id: ID_Output;
   email: String;
   password: String;
+  tokens: String[];
   signedUpOn: DateTimeOutput;
 }
 
@@ -721,6 +761,7 @@ export interface UserPreviousValuesPromise
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
   password: () => Promise<String>;
+  tokens: () => Promise<String[]>;
   signedUpOn: () => Promise<DateTimeOutput>;
 }
 
@@ -730,6 +771,7 @@ export interface UserPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
+  tokens: () => Promise<AsyncIterator<String[]>>;
   signedUpOn: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 

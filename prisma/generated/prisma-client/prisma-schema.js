@@ -24,6 +24,7 @@ type LoginAttempt {
   badPassword: Boolean
   email: String
   password: String
+  authToken: String
   time: DateTime!
   ip: String!
 }
@@ -40,6 +41,7 @@ input LoginAttemptCreateInput {
   badPassword: Boolean
   email: String
   password: String
+  authToken: String
   time: DateTime!
   ip: String!
 }
@@ -62,6 +64,8 @@ enum LoginAttemptOrderByInput {
   email_DESC
   password_ASC
   password_DESC
+  authToken_ASC
+  authToken_DESC
   time_ASC
   time_DESC
   ip_ASC
@@ -79,6 +83,7 @@ type LoginAttemptPreviousValues {
   badPassword: Boolean
   email: String
   password: String
+  authToken: String
   time: DateTime!
   ip: String!
 }
@@ -107,6 +112,7 @@ input LoginAttemptUpdateInput {
   badPassword: Boolean
   email: String
   password: String
+  authToken: String
   time: DateTime
   ip: String
 }
@@ -117,6 +123,7 @@ input LoginAttemptUpdateManyMutationInput {
   badPassword: Boolean
   email: String
   password: String
+  authToken: String
   time: DateTime
   ip: String
 }
@@ -170,6 +177,20 @@ input LoginAttemptWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
+  authToken: String
+  authToken_not: String
+  authToken_in: [String!]
+  authToken_not_in: [String!]
+  authToken_lt: String
+  authToken_lte: String
+  authToken_gt: String
+  authToken_gte: String
+  authToken_contains: String
+  authToken_not_contains: String
+  authToken_starts_with: String
+  authToken_not_starts_with: String
+  authToken_ends_with: String
+  authToken_not_ends_with: String
   time: DateTime
   time_not: DateTime
   time_in: [DateTime!]
@@ -254,6 +275,7 @@ type User {
   id: ID!
   email: String!
   password: String!
+  tokens: [String!]!
   signedUpOn: DateTime!
 }
 
@@ -266,7 +288,12 @@ type UserConnection {
 input UserCreateInput {
   email: String!
   password: String!
+  tokens: UserCreatetokensInput
   signedUpOn: DateTime!
+}
+
+input UserCreatetokensInput {
+  set: [String!]
 }
 
 type UserEdge {
@@ -293,6 +320,7 @@ type UserPreviousValues {
   id: ID!
   email: String!
   password: String!
+  tokens: [String!]!
   signedUpOn: DateTime!
 }
 
@@ -317,13 +345,19 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   email: String
   password: String
+  tokens: UserUpdatetokensInput
   signedUpOn: DateTime
 }
 
 input UserUpdateManyMutationInput {
   email: String
   password: String
+  tokens: UserUpdatetokensInput
   signedUpOn: DateTime
+}
+
+input UserUpdatetokensInput {
+  set: [String!]
 }
 
 input UserWhereInput {

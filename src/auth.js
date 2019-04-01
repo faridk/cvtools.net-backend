@@ -9,10 +9,8 @@ async function authenticateUser(email: string, password: string, ip: string) {
 	let loginResponse: string;
 	let badEmail: boolean;
 	let badPassword: boolean;
-	// Generate an authToken from random string
-	let randomString: string = Math.random().toString(36).substring(2, 15)
-		+ Math.random().toString(36).substring(2, 15); // 20-22 chars
-	let authToken: string = Buffer.from(randomString).toString('base64');
+	// Will be set to an actual base64 token on successful attempt
+	let authToken: string = 'none';
 	// Lookup email in the DB
 	const user = await prisma.user({ email: email });
 	if (user === null) {
@@ -26,26 +24,32 @@ async function authenticateUser(email: string, password: string, ip: string) {
 		badEmail = false;
 		badPassword = true;
 		loginResponse = 'bad credentials';
-	} else {
+	} else { // Login successful
+		// Generate an authToken from random string
+		let randomString: string = Math.random().toString(36).substring(2, 15)
+		+ Math.random().toString(36).substring(2, 15); // 20-22 chars
+		authToken = Buffer.from(randomString).toString('base64');
 		attemptSuccessful = true;
 		badEmail = false;
 		badPassword = false;
 		loginResponse = 'authToken: ' + authToken;
 	}
 	recordLoginAttempt(attemptSuccessful,
-		badEmail, badPassword, email, password, ip);
+		badEmail, badPassword, email, password, ip, authToken);
 	return loginResponse;
 }
 
 // Used by authenticateUser()
-async function recordLoginAttempt(successful: boolean, badEmail: boolean,
-	badPassword: boolean, email: string, password: string, ip: string) {
+async function recordLoginAttempt(successful: boolean,
+	badEmail: boolean, badPassword: boolean, email: string,
+	password: string, ip: string, authToken: string) {
 	const newLoginAttempt = await prisma.createLoginAttempt({
 		successful: successful,
 		badEmail: badEmail,
 		badPassword: badPassword,
 		email: email,
 		password: password,
+		authToken: authToken,
 		time: new Date(),
 		ip: ip
 	}).catch((error) => {
@@ -91,7 +95,8 @@ async function signUp(email: string, password: string, ip: string) {
 		if (errorMessage.includes("A unique constraint would be violated on User." +
 			" Details: Field name = email")) {
 			console.log('\x1b[31m'); // Red color
-			console.log(`Error: e-mail ${email} already in use; password: ${password};\n` +
+			console.log(`Error: e-mail ${email} already in use;` +
+				`password: ${password};\n` +
 				`time: ${(new Date()).toString()}`);
 			console.log('\x1b[0m'); // Reset color back to normal
 			return 'error: email in use';
