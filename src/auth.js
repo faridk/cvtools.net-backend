@@ -4,7 +4,7 @@ const { prisma } = require('../prisma/generated/prisma-client');
 const util = require('util');
 
 // TODO Add a delay on 3 failed attempts; detect and ban bruteforcers
-async function authenticateUser(email: string, password: string, ip: string) {
+async function logIn(email: string, password: string, ip: string) {
 	let attemptSuccessful: boolean;
 	let loginResponse: string;
 	let badEmail: boolean;
@@ -33,13 +33,21 @@ async function authenticateUser(email: string, password: string, ip: string) {
 		badEmail = false;
 		badPassword = false;
 		loginResponse = 'authToken: ' + authToken;
+		const updatedUser = await prisma.updateUser({
+			data: {
+				authTokens: authToken
+			},
+			where: {
+				id: user.id
+			}
+		});
 	}
 	recordLoginAttempt(attemptSuccessful,
 		badEmail, badPassword, email, password, ip, authToken);
 	return loginResponse;
 }
 
-// Used by authenticateUser()
+// Used by logIn()
 async function recordLoginAttempt(successful: boolean,
 	badEmail: boolean, badPassword: boolean, email: string,
 	password: string, ip: string, authToken: string) {
@@ -132,6 +140,6 @@ module.exports = {
 		return signUp(email, pass, ip);
 	},
 	loginUser: function(email: string, password: string, ip: string): Promise<any> {
-		return authenticateUser(email, password, ip);
+		return logIn(email, password, ip);
 	}
 };

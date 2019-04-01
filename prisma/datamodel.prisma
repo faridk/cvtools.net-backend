@@ -2,7 +2,7 @@ type User {
   id: ID! @unique
   email: String! @unique
   password: String!
-  tokens: [String!]!
+  authTokens: [String]
   signedUpOn: DateTime!
 }
 

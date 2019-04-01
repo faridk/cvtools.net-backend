@@ -275,7 +275,7 @@ type User {
   id: ID!
   email: String!
   password: String!
-  tokens: [String!]!
+  authTokens: [String!]!
   signedUpOn: DateTime!
 }
 
@@ -285,15 +285,15 @@ type UserConnection {
   aggregate: AggregateUser!
 }
 
+input UserCreateauthTokensInput {
+  set: [String!]
+}
+
 input UserCreateInput {
   email: String!
   password: String!
-  tokens: UserCreatetokensInput
+  authTokens: UserCreateauthTokensInput
   signedUpOn: DateTime!
-}
-
-input UserCreatetokensInput {
-  set: [String!]
 }
 
 type UserEdge {
@@ -320,7 +320,7 @@ type UserPreviousValues {
   id: ID!
   email: String!
   password: String!
-  tokens: [String!]!
+  authTokens: [String!]!
   signedUpOn: DateTime!
 }
 
@@ -342,22 +342,22 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
+input UserUpdateauthTokensInput {
+  set: [String!]
+}
+
 input UserUpdateInput {
   email: String
   password: String
-  tokens: UserUpdatetokensInput
+  authTokens: UserUpdateauthTokensInput
   signedUpOn: DateTime
 }
 
 input UserUpdateManyMutationInput {
   email: String
   password: String
-  tokens: UserUpdatetokensInput
+  authTokens: UserUpdateauthTokensInput
   signedUpOn: DateTime
-}
-
-input UserUpdatetokensInput {
-  set: [String!]
 }
 
 input UserWhereInput {

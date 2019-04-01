@@ -384,29 +384,29 @@ export interface LoginAttemptUpdateManyMutationInput {
 export interface UserCreateInput {
   email: String;
   password: String;
-  tokens?: UserCreatetokensInput;
+  authTokens?: UserCreateauthTokensInput;
   signedUpOn: DateTimeInput;
 }
 
-export interface UserCreatetokensInput {
+export interface UserCreateauthTokensInput {
   set?: String[] | String;
 }
 
 export interface UserUpdateInput {
   email?: String;
   password?: String;
-  tokens?: UserUpdatetokensInput;
+  authTokens?: UserUpdateauthTokensInput;
   signedUpOn?: DateTimeInput;
 }
 
-export interface UserUpdatetokensInput {
+export interface UserUpdateauthTokensInput {
   set?: String[] | String;
 }
 
 export interface UserUpdateManyMutationInput {
   email?: String;
   password?: String;
-  tokens?: UserUpdatetokensInput;
+  authTokens?: UserUpdateauthTokensInput;
   signedUpOn?: DateTimeInput;
 }
 
@@ -565,7 +565,7 @@ export interface User {
   id: ID_Output;
   email: String;
   password: String;
-  tokens: String[];
+  authTokens: String[];
   signedUpOn: DateTimeOutput;
 }
 
@@ -573,7 +573,7 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
   password: () => Promise<String>;
-  tokens: () => Promise<String[]>;
+  authTokens: () => Promise<String[]>;
   signedUpOn: () => Promise<DateTimeOutput>;
 }
 
@@ -583,7 +583,7 @@ export interface UserSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
-  tokens: () => Promise<AsyncIterator<String[]>>;
+  authTokens: () => Promise<AsyncIterator<String[]>>;
   signedUpOn: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
@@ -751,7 +751,7 @@ export interface UserPreviousValues {
   id: ID_Output;
   email: String;
   password: String;
-  tokens: String[];
+  authTokens: String[];
   signedUpOn: DateTimeOutput;
 }
 
@@ -761,7 +761,7 @@ export interface UserPreviousValuesPromise
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
   password: () => Promise<String>;
-  tokens: () => Promise<String[]>;
+  authTokens: () => Promise<String[]>;
   signedUpOn: () => Promise<DateTimeOutput>;
 }
 
@@ -771,7 +771,7 @@ export interface UserPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
-  tokens: () => Promise<AsyncIterator<String[]>>;
+  authTokens: () => Promise<AsyncIterator<String[]>>;
   signedUpOn: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
