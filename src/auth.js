@@ -33,9 +33,13 @@ async function logIn(email: string, password: string, ip: string) {
 		badEmail = false;
 		badPassword = false;
 		loginResponse = 'authToken: ' + authToken;
+		// Add an additional token to the list
+		user.authTokens.push(authToken);
 		const updatedUser = await prisma.updateUser({
 			data: {
-				authTokens: authToken
+				authTokens: {
+					set: user.authTokens
+				}
 			},
 			where: {
 				id: user.id
@@ -95,6 +99,9 @@ async function signUp(email: string, password: string, ip: string) {
 	const newUser = await prisma.createUser({
 		email: email,
 		password: password,
+		authTokens: {
+			set: []
+		},
 		signedUpOn: new Date()
 	}).catch((error) => {
 		// Show complete error object
