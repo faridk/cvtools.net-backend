@@ -135,6 +135,10 @@ async function signUp(email: string, password: string, ip: string) {
 			`ID: ${result.id}\n` +
 			`email: ${result.email}\n` +
 			`password: ${result.password}`);
+			// Log in a user right after signing them up
+			// In other words, send them an authToken
+			logIn(email, password, ip);
+			// The 'OK' message has no impact at all (see apollo.js)
 			return Promise.resolve('OK');
 		} else {
 			return Promise.reject(result); // Return error
