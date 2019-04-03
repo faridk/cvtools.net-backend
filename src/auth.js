@@ -83,9 +83,9 @@ async function recordLoginAttempt(successful: boolean,
 		// No errors (GraphQL object not a string) thus .toString()
 		if (!result.toString().includes("error")) {
 			console.log(`\x1b[${successful ? '32' : '31'}m`); // Green or red color
-			console.log(`New ${successful ? 'successful' : 'failed'} login attempt\n` +
-			`email: ${result.email}\n` +
-			`password: ${result.password}`);
+			console.log(`New ${successful ? 'successful' : 'failed'} login attempt\n`
+				+`email: ${result.email}\n`
+				+`password: ${result.password}`);
 			console.log('\x1b[0m'); // Reset color back to normal
 			return Promise.resolve('OK');
 		} else {
@@ -150,7 +150,8 @@ module.exports = {
 	signupUser: function(email: string, pass: string, ip:string): Promise<any> {
 		return signUp(email, pass, ip);
 	},
-	loginUser: function(email: string, password: string, ip: string): Promise<any> {
+	loginUser: function(email: string,
+			password: string, ip: string): Promise<any> {
 		return logIn(email, password, ip);
 	}
 };
