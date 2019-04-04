@@ -3,6 +3,33 @@ const { prisma } = require('../prisma/generated/prisma-client');
 // To show all object fields and methods instead of [object Object]
 const util = require('util');
 
+const typeDefs = [`
+	type Mutation {
+		login(email: String, password: String): String,
+		signup(email: String, password: String): String
+	}
+`];
+
+var resolvers = {
+	Mutation: {
+		// $NoFlow
+		login: async (_, { email, password }, context) => {
+			// console.log(`\nLogin\ne-mail: ${email}\npassword: ${password}\n`);
+			return logIn(email, password, context.ip);
+		},
+		// $NoFlow
+		signup: async (_, { email, password }, context) => {
+			let message = 'ok';
+			console.log("IP", context.ip);
+			console.log(`\nSign Up\ne-mail: ${email}\npassword: ${password}`);
+			await signUp(email, password, context.ip).catch((error) => {
+				message = error;
+			});
+			return message;
+		}
+	}
+};
+
 // TODO Add a delay on 3 failed attempts; detect and ban bruteforcers
 async function logIn(email: string, password: string, ip: string) {
 	let attemptSuccessful: boolean;
@@ -147,6 +174,8 @@ async function signUp(email: string, password: string, ip: string) {
 }
 
 module.exports = {
+	typeDefs,
+	resolvers,
 	signupUser: function(email: string, pass: string, ip:string): Promise<any> {
 		return signUp(email, pass, ip);
 	},

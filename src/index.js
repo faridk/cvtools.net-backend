@@ -1,5 +1,5 @@
 const servers = require('./servers');
-const core = require('./core/main');
+const core = require('./core/main')
 
 servers.startServers();
 
