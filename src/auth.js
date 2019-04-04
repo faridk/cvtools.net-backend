@@ -172,15 +172,8 @@ async function signUp(email: string, password: string, ip: string) {
 		}
 	});
 }
-
+// Export typeDefs & resolvers to be combined into one schema along with others
 module.exports = {
 	typeDefs,
-	resolvers,
-	signupUser: function(email: string, pass: string, ip:string): Promise<any> {
-		return signUp(email, pass, ip);
-	},
-	loginUser: function(email: string,
-			password: string, ip: string): Promise<any> {
-		return logIn(email, password, ip);
-	}
+	resolvers
 };

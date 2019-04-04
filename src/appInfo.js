@@ -22,6 +22,7 @@ var resolvers = {
 	}
 };
 
+// Export typeDefs & resolvers to be combined into one schema along with others
 module.exports = {
   typeDefs,
   resolvers
