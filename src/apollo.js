@@ -3,7 +3,7 @@ const { ApolloServer, gql } = require('apollo-server');
 // To merge GraphQL resolvers from various imports below $NoFlow
 const lodash = require('lodash'); // $NoFlow
 const graphqlTools = require('graphql-tools');
-const appInfo = require('./appInfo');
+const appInfo = require('./appinfo');
 const auth = require('./auth');
 
 
