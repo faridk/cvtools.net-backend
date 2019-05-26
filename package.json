@@ -30,6 +30,7 @@
   "dependencies": {
     "apollo-server": "^2.4.8",
     "cors": "^2.8.5",
+    "formidable": "^1.2.1",
     "graphql": "^14.1.1",
     "graphql-tools": "^4.0.4",
     "graphql-upload": "^8.0.5",
