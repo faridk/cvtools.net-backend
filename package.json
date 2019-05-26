@@ -28,10 +28,7 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
-    "@tensorflow-models/body-pix": "^1.0.0",
-    "@tensorflow/tfjs-node-gpu": "^1.0.1",
     "apollo-server": "^2.4.8",
-    "canvas": "^2.3.1",
     "cors": "^2.8.5",
     "graphql": "^14.1.1",
     "graphql-tools": "^4.0.4",
