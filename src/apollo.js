@@ -5,8 +5,6 @@ const lodash = require('lodash'); // $NoFlow
 const graphqlTools = require('graphql-tools');
 const appInfo = require('./appinfo');
 const auth = require('./auth');
-const fileupload = require('./fileupload');
-
 
 // Query fields not associated with a specific type
 // So that other Queries can extend it
@@ -19,10 +17,9 @@ const Query = `
 const initialResolvers = {};
 // Merge both typeDefs and resolvers from imported files
 const typeDefs = [Query,
-	appInfo.typeDefs.toString(), auth.typeDefs.toString(),
-	fileupload.typeDefs.toString()];
+	appInfo.typeDefs.toString(), auth.typeDefs.toString()];
 const resolvers = lodash.merge(initialResolvers,
-	appInfo.resolvers, auth.resolvers, fileupload.resolvers);
+	appInfo.resolvers, auth.resolvers);
 // Generate a single schema from all merged typeDefs and resolvers
 var schema = graphqlTools.makeExecutableSchema({ typeDefs, resolvers });
 

@@ -1,29 +1,31 @@
-// $NoFlow
-const { ApolloServer, gql } = require('apollo-server'); // $NoFlow
-const { GraphQLUpload } = require('graphql-upload');
+const formidable = require('formidable');
 
-// TODO stream file to the server using WebSockets
-// instead of uploading it using GraphQL multipart HTTP request
-
-// Upload was renamed to FileUpload because of a name conflict
-const typeDefs = `
-	scalar FileUpload
-	extend type Mutation {
-		uploadFiles(files: FileUpload!): String
-	}
-`;
-
-const resolvers = {
-	Mutation: {
-		uploadFiles: async (parent: any, { files }: any) => {
-			console.log(await files);
-			return files[0].path;
-		}
-	}
+function processFileUpload(app) {
+	// File uploads
+	app.post('/', (req, res) => {
+		var form = new formidable.IncomingForm();
+		// Limit video file size to 10GB
+		form.maxFileSize = 10 * 1024 * 1024 * 1024;
+		form.on('progress', function(bytesReceived, bytesExpected) {
+			// TODO send this to client over WebSockets
+			console.log(`${bytesReceived} / ${bytesExpected}`);
+		});
+		form.parse(req, function (error, fields, files) {
+			console.log(files.videoUpload);
+			// console.log(files.videoUpload.path);
+			if (error) {
+				console.log(error);
+			}
+			// Send a response back
+			res.write('File uploaded');
+			res.end();
+		});
+	});
 }
 
 // Export typeDefs & resolvers to be combined into one schema along with others
 module.exports = {
-	typeDefs,
-	resolvers
+	processFileUpload: function(app) {
+		processFileUpload(app);
+	}
 };
