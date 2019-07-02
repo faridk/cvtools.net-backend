@@ -7,9 +7,11 @@ const app = express();
 const apollo = require('./apollo');
 const fileupload = require('./fileupload');
 
+const frontendPath = ‘./../frontend/build’;
+
 /* TODO
    use validator.isEmail() for frontend validated emails
-   use MongoDB for storing user emails and HASHED passwords
+   use Prisma for storing user emails and HASHED passwords
    implement authentication: use JSON Web Token (JWT) (recommended) or sessions
    change session id on login to protect against session fixation attacks
    use Synchronizing Token Pattern to protect against Cross-Site Request Forgeries (CSRF)
@@ -40,7 +42,7 @@ function startServers() {
 function startExpress() {
 	// Allow Cross-Origin Requests
 	app.use(cors());
-	app.use(express.static('./../cvtools.net-frontend/build', {
+	app.use(express.static(frontendPath, {
 		extensions: ['html', 'htm'],
 		// Other options here
 	}));
