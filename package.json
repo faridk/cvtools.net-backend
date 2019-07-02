@@ -1,5 +1,5 @@
 {
-  "name": "cvtools.net-backend",
+  "name": "node-flow-prisma",
   "version": "0.1.2",
   "description": "",
   "main": "build/index.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/faridk/cvtools.net-backend.git"
+    "url": "git+https://github.com/faridk/node-flow-prisma.git"
   },
   "author": "Farid Kurbanov",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/faridk/cvtools.net-backend/issues"
+    "url": "https://github.com/faridk/node-flow-prisma/issues"
   },
-  "homepage": "https://github.com/faridk/cvtools.net-backend#readme",
+  "homepage": "https://github.com/faridk/node-flow-prisma#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-flow": "^6.23.0",
